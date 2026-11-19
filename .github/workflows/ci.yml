@@ -27,16 +27,3 @@ jobs:
       - name: Unit tests
         run: npm test
 
-  topics:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - name: Set repository topics
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh api --method PUT "repos/${GITHUB_REPOSITORY}/topics" --input - <<'JSON'
-          {"names":["electron","desktop-pet","typescript","windows","electron-forge","ai-companion"]}
-          JSON
