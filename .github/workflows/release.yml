@@ -26,6 +26,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" release/*.exe \
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          mkdir -p dist-upload
+          cp release/*.exe "dist-upload/shenxun-whale-maid-${version}-x64-Setup.exe"
+          sed "s|\${GITHUB_REF_NAME}|${GITHUB_REF_NAME}|g" .github/release-notes.md > dist-upload/notes.md
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            gh release delete "${GITHUB_REF_NAME}" --yes --cleanup-tag=false
+          fi
+          gh release create "${GITHUB_REF_NAME}" dist-upload/*.exe \
             --title "深寻鲸娘 ${GITHUB_REF_NAME}" \
-            --notes-file .github/release-notes.md
+            --notes-file dist-upload/notes.md
+          gh release view "${GITHUB_REF_NAME}" --json assets --jq '.assets[].name'
