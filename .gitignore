@@ -1,0 +1,21 @@
+node_modules/
+.webpack/
+.build/
+out/
+release/
+qa/*
+!qa/manual-checklist.md
+*.log
+.DS_Store
+Thumbs.db
+
+# local temp workspace
+.tmp/
+# raw source assets (kept local, regenerate with: npm run process:assets)
+incoming-assets/
+# build caches / local env
+*.tsbuildinfo
+coverage/
+.env
+.env.local
+.env.*.local

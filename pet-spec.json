@@ -1,0 +1,456 @@
+{
+  "schemaVersion": 5,
+  "app": {
+    "name": "深寻鲸娘",
+    "appId": "com.doubao.pet.whalemaid",
+    "version": "1.0.0",
+    "language": "zh-CN"
+  },
+  "targets": {
+    "windows": {
+      "enabled": true,
+      "arch": "x64"
+    },
+    "macos": {
+      "enabled": false,
+      "arch": "current"
+    }
+  },
+  "character": {
+    "inputType": "text",
+    "coreAsset": "core-ip/core-ip.png",
+    "displayName": "鲸汐",
+    "archetype": "fantasy",
+    "personality": [
+      "温柔",
+      "有点迷糊",
+      "爱干净",
+      "声音软软的"
+    ],
+    "preserveTraits": [
+      "二头身Q版比例，头大身小",
+      "深海军蓝到浅青渐变的及腰长发与齐刘海",
+      "两侧小小的鲸鱼鳍状蓝色耳鳍",
+      "白色女仆发带与头顶一小簇白色水花",
+      "深海蓝大眼睛、青色高光和淡粉腮红",
+      "深蓝女仆裙、白色荷叶边围裙与青色蝴蝶结",
+      "身后浅蓝色鲸尾，尾鳍在右后方微微翘起",
+      "白色短袜与深蓝色圆头小皮鞋"
+    ],
+    "style": "balanced-cartoon",
+    "mirrorSafe": false
+  },
+  "assetPipeline": {
+    "backgroundMode": "semantic-cutout",
+    "segmentationBackend": "auto",
+    "subjectKind": "illustration",
+    "generationBackground": "transparent-grid",
+    "backgroundTolerance": 28,
+    "edgeFeather": 12,
+    "safeMargin": 24,
+    "targetOccupancy": 0.78
+  },
+  "experience": {
+    "theme": {
+      "primary": "#2F5FD0",
+      "accent": "#43C8DB",
+      "background": "#EDF5FF",
+      "surface": "#FFFFFF",
+      "text": "#12213D",
+      "muted": "#6C82A8",
+      "cornerRadius": 24
+    },
+    "petSizing": {
+      "baseWindowPx": 220,
+      "defaultScale": 0.8
+    },
+    "interactions": [
+      {
+        "id": "pat-head",
+        "label": "摸摸头",
+        "stateId": "pet",
+        "durationMs": 1300,
+        "affectionGain": 3,
+        "feedback": [
+          "唔…好舒服",
+          "再摸一下下嘛",
+          "鲸汐的鳍鳍都在晃"
+        ]
+      },
+      {
+        "id": "feed-fish",
+        "label": "喂小鱼干",
+        "stateId": "feed",
+        "durationMs": 1400,
+        "affectionGain": 5,
+        "feedback": [
+          "是小鱼干！",
+          "谢谢主人～",
+          "深海的鱼最香了"
+        ]
+      },
+      {
+        "id": "dress-curtsy",
+        "label": "提裙行礼",
+        "stateId": "curtsy",
+        "durationMs": 1350,
+        "affectionGain": 4,
+        "feedback": [
+          "女仆鲸汐，为您服务",
+          "主人今天也辛苦啦",
+          "围裙有好好整理哦"
+        ]
+      },
+      {
+        "id": "spray-water",
+        "label": "喷个小水花",
+        "stateId": "spray",
+        "durationMs": 1450,
+        "affectionGain": 2,
+        "feedback": [
+          "尾巴一甩，水花就来啦",
+          "小心别被淋到哦",
+          "鲸汐的尾鳍最会喷水"
+        ]
+      },
+      {
+        "id": "fetch-shell",
+        "label": "捡颗贝壳",
+        "stateId": "fetch",
+        "durationMs": 1450,
+        "affectionGain": 3,
+        "feedback": [
+          "看！这颗贝壳是青色的",
+          "深海里的贝壳最漂亮",
+          "送给主人，收好哦"
+        ]
+      },
+      {
+        "id": "focus-session",
+        "label": "陪你坐一会",
+        "stateId": "focus",
+        "durationMs": 5200,
+        "affectionGain": 2,
+        "feedback": [
+          "我坐这里，安静陪着你",
+          "翻书的声音很轻吧",
+          "专注的时候，鲸汐守着"
+        ]
+      }
+    ]
+  },
+  "motion": {
+    "breathing": {
+      "enabled": true,
+      "periodMs": 3400,
+      "scaleX": 0.012,
+      "scaleY": 0.022
+    },
+    "squashStretch": {
+      "enabled": true,
+      "durationMs": 320,
+      "intensity": 0.08
+    },
+    "idleIntervalMs": {
+      "min": 7000,
+      "max": 13000
+    }
+  },
+  "features": {
+    "transparentWindow": true,
+    "drag": true,
+    "tray": true,
+    "edgeSnap": true,
+    "reminders": true,
+    "interactions": true,
+    "relationship": true,
+    "filePocket": false,
+    "dashboard": true,
+    "typingReaction": false,
+    "autonomousMovement": false
+  },
+  "states": [
+    {
+      "id": "idle",
+      "triggers": [
+        "app:start",
+        "ambient:idle"
+      ],
+      "frames": [
+        "idle-01.png",
+        "idle-02.png",
+        "idle-03.png",
+        "idle-04.png"
+      ],
+      "frameDurationMs": 900,
+      "loop": true,
+      "priority": 10,
+      "interrupt": "resume",
+      "cooldownMs": 0,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": false
+    },
+    {
+      "id": "blink",
+      "triggers": [
+        "ambient:blink"
+      ],
+      "frames": [
+        "blink-01.png",
+        "blink-02.png",
+        "blink-03.png",
+        "blink-04.png",
+        "blink-05.png"
+      ],
+      "frameDurationMs": 75,
+      "loop": false,
+      "priority": 30,
+      "interrupt": "restart",
+      "cooldownMs": 2500,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": true
+    },
+    {
+      "id": "happy",
+      "triggers": [
+        "pointer:tap"
+      ],
+      "frames": [
+        "happy-01.png",
+        "happy-02.png",
+        "happy-03.png",
+        "happy-04.png",
+        "happy-05.png"
+      ],
+      "frameDurationMs": 110,
+      "loop": false,
+      "priority": 70,
+      "interrupt": "restart",
+      "cooldownMs": 300,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": true
+    },
+    {
+      "id": "notify",
+      "triggers": [
+        "reminder:due"
+      ],
+      "frames": [
+        "notify-01.png",
+        "notify-02.png",
+        "notify-03.png",
+        "notify-04.png",
+        "notify-05.png"
+      ],
+      "frameDurationMs": 120,
+      "loop": false,
+      "priority": 95,
+      "interrupt": "restart",
+      "cooldownMs": 800,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": true
+    },
+    {
+      "id": "peek",
+      "triggers": [
+        "window:edge-snap"
+      ],
+      "frames": [
+        "peek-01.png",
+        "peek-02.png",
+        "peek-03.png",
+        "peek-04.png",
+        "peek-05.png"
+      ],
+      "frameDurationMs": 120,
+      "loop": false,
+      "priority": 55,
+      "interrupt": "resume",
+      "cooldownMs": 1800,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": false
+    },
+    {
+      "id": "pet",
+      "triggers": [
+        "interaction:pat-head"
+      ],
+      "frames": [
+        "pet-01.png",
+        "pet-02.png",
+        "pet-03.png",
+        "pet-04.png",
+        "pet-05.png"
+      ],
+      "frameDurationMs": 180,
+      "loop": false,
+      "priority": 85,
+      "interrupt": "restart",
+      "cooldownMs": 250,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": true
+    },
+    {
+      "id": "feed",
+      "triggers": [
+        "interaction:feed-fish"
+      ],
+      "frames": [
+        "feed-01.png",
+        "feed-02.png",
+        "feed-03.png",
+        "feed-04.png",
+        "feed-05.png"
+      ],
+      "frameDurationMs": 200,
+      "loop": false,
+      "priority": 85,
+      "interrupt": "restart",
+      "cooldownMs": 300,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": true
+    },
+    {
+      "id": "curtsy",
+      "triggers": [
+        "interaction:dress-curtsy"
+      ],
+      "frames": [
+        "curtsy-01.png",
+        "curtsy-02.png",
+        "curtsy-03.png",
+        "curtsy-04.png",
+        "curtsy-05.png"
+      ],
+      "frameDurationMs": 190,
+      "loop": false,
+      "priority": 85,
+      "interrupt": "restart",
+      "cooldownMs": 300,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": false
+    },
+    {
+      "id": "spray",
+      "triggers": [
+        "interaction:spray-water"
+      ],
+      "frames": [
+        "spray-01.png",
+        "spray-02.png",
+        "spray-03.png",
+        "spray-04.png",
+        "spray-05.png"
+      ],
+      "frameDurationMs": 210,
+      "loop": false,
+      "priority": 85,
+      "interrupt": "restart",
+      "cooldownMs": 300,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": false
+    },
+    {
+      "id": "fetch",
+      "triggers": [
+        "interaction:fetch-shell"
+      ],
+      "frames": [
+        "fetch-01.png",
+        "fetch-02.png",
+        "fetch-03.png",
+        "fetch-04.png",
+        "fetch-05.png"
+      ],
+      "frameDurationMs": 210,
+      "loop": false,
+      "priority": 85,
+      "interrupt": "restart",
+      "cooldownMs": 350,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": false
+    },
+    {
+      "id": "focus",
+      "triggers": [
+        "interaction:focus-session"
+      ],
+      "frames": [
+        "focus-01.png",
+        "focus-02.png",
+        "focus-03.png",
+        "focus-04.png",
+        "focus-05.png"
+      ],
+      "frameDurationMs": 900,
+      "loop": false,
+      "priority": 60,
+      "interrupt": "resume",
+      "cooldownMs": 0,
+      "direction": "neutral",
+      "anchor": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "mirrorSafe": false
+    }
+  ],
+  "storage": {
+    "userData": "app-user-data",
+    "filePocket": "documents-app-name"
+  },
+  "build": {
+    "windows": {
+      "arch": "x64",
+      "installer": "squirrel",
+      "portable": "zip"
+    },
+    "macos": {
+      "arch": "current",
+      "diskImage": "dmg",
+      "portable": "zip"
+    },
+    "timeoutMinutes": 30,
+    "unsigned": true
+  }
+}

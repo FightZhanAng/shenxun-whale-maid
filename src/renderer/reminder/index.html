@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>提醒</title>
+  <style>
+    /* 首帧守卫：窗口显示瞬间即保持透明，避免白底闪烁。 */
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="reminder-card">
+    <div class="shell">
+      <div class="shell__aura" aria-hidden="true"></div>
+      <div class="shell__grain" aria-hidden="true"></div>
+
+      <header class="masthead reveal" data-step="1">
+        <span class="masthead__sigil" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 5.5c3.6 0 6.5 2.9 6.5 6.5v4.2l2 3.3H7.5l2-3.3V12c0-3.6 2.9-6.5 6.5-6.5Z" />
+            <path d="M13.4 22.2a2.6 2.6 0 0 0 5.2 0" />
+          </svg>
+        </span>
+        <div class="masthead__id">
+          <h1 class="masthead__title">深海信笺</h1>
+          <p class="masthead__sub">写一句，到点鲸汐会来叫你</p>
+        </div>
+        <button class="ghost-btn" id="cancel-btn" type="button" aria-label="关闭">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <path d="M4 4l8 8M12 4l-8 8" />
+          </svg>
+        </button>
+      </header>
+
+      <main class="compose">
+        <div class="field reveal" data-step="2">
+          <label class="field__label" for="reminder-text">要提醒什么</label>
+          <input class="field__input" type="text" id="reminder-text"
+                 placeholder="例如：起来喝口水" autocomplete="off" maxlength="200">
+        </div>
+
+        <div class="field reveal" data-step="3">
+          <label class="field__label" for="reminder-time">什么时候</label>
+          <input class="field__input field__input--time" type="datetime-local" id="reminder-time">
+        </div>
+
+        <div class="quick-row reveal" data-step="4" id="quick-row">
+          <button class="chip" type="button" data-minutes="5">5 分钟</button>
+          <button class="chip" type="button" data-minutes="15">15 分钟</button>
+          <button class="chip" type="button" data-minutes="30">半小时</button>
+          <button class="chip" type="button" data-minutes="60">1 小时</button>
+        </div>
+
+        <p class="compose__hint" id="compose-hint" role="status" aria-live="polite"></p>
+
+        <div class="actions reveal" data-step="5">
+          <button class="btn btn-ghost" id="dismiss-btn" type="button">取消</button>
+          <button class="btn btn-primary" id="save-btn" type="button">放入海中</button>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

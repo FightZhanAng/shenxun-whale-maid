@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>桌宠小屋</title>
+  <style>
+    /* 首帧守卫：窗口显示的第一毫秒就保持透明，避免白底闪一下。
+       完整样式在 index.css，这里只保留透明根这一条关键规则。 */
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="dashboard">
+    <div class="shell">
+      <div class="shell__aura" aria-hidden="true"></div>
+      <div class="shell__grain" aria-hidden="true"></div>
+
+      <!-- 身份条：声呐标记 + 宋体名字 + 收起按钮 -->
+      <header class="masthead reveal" data-step="1">
+        <span class="masthead__sigil" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="16" cy="16" r="2.1" fill="currentColor" stroke="none" />
+            <path d="M21.6 10.4a7.9 7.9 0 0 1 0 11.2" />
+            <path d="M24.8 7.2a12.4 12.4 0 0 1 0 17.6" />
+            <path d="M10.4 10.4a7.9 7.9 0 0 0 0 11.2" />
+            <path d="M7.2 7.2a12.4 12.4 0 0 0 0 17.6" />
+          </svg>
+        </span>
+        <div class="masthead__id">
+          <h1 class="masthead__name" id="pet-name">鲸汐</h1>
+          <p class="masthead__traits" id="pet-personality">正在打捞角色信息…</p>
+        </div>
+        <button class="ghost-btn" id="close-btn" type="button" aria-label="收起小屋">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <path d="M3.5 6.5 8 11l4.5-4.5" />
+          </svg>
+        </button>
+      </header>
+
+      <main class="content-scroll">
+        <!-- 羁绊：环形仪表 + 三项读数 -->
+        <section class="vitals reveal" data-step="2" aria-labelledby="vitals-title">
+          <div class="section-head">
+            <h2 class="section-title" id="vitals-title">羁绊</h2>
+            <span class="section-rule" aria-hidden="true"></span>
+          </div>
+          <div class="vitals__body">
+            <div class="gauge">
+              <svg class="gauge__ring" viewBox="0 0 128 128" aria-hidden="true">
+                <circle class="gauge__track" cx="64" cy="64" r="56" />
+                <circle class="gauge__fill" id="affection-ring" cx="64" cy="64" r="56" />
+              </svg>
+              <div class="gauge__center">
+                <span class="gauge__value" id="affection">0</span>
+                <span class="gauge__unit">好感</span>
+              </div>
+            </div>
+            <dl class="readouts">
+              <div class="readout"><dt>心情</dt><dd id="mood">80</dd></div>
+              <div class="readout"><dt>今日互动</dt><dd id="today-interactions">0</dd></div>
+              <div class="readout"><dt>陪伴</dt><dd><span id="companion-minutes">0</span><small>分</small></dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <!-- 同频：25 分钟专注，激活后整卡进入声呐扫描态 -->
+        <section class="focus-panel reveal" data-step="3" id="focus-panel" aria-labelledby="focus-title">
+          <div class="focus-head">
+            <h2 class="section-title focus-title" id="focus-title">同频</h2>
+            <span class="focus-badge" id="focus-badge">待机</span>
+          </div>
+          <div class="focus-clock" id="focus-clock">25:00</div>
+          <div class="focus-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="focus-bar">
+            <div class="focus-fill" id="focus-fill"></div>
+          </div>
+          <p class="focus-hint" id="focus-hint">点一下，鲸汐会坐在旁边安静翻书陪你</p>
+          <div class="focus-actions">
+            <button class="btn btn-primary" id="focus-start" type="button">开始 25 分钟</button>
+            <button class="btn btn-ghost" id="focus-stop" type="button" hidden>结束专注</button>
+          </div>
+        </section>
+
+        <!-- 互动：六张舷窗卡片，由渲染进程按 spec 生成 -->
+        <section class="reveal" data-step="4" aria-labelledby="interactions-title">
+          <div class="section-head">
+            <h2 class="section-title" id="interactions-title">互动</h2>
+            <span class="section-rule" aria-hidden="true"></span>
+          </div>
+          <div class="interactions" id="interactions-list"></div>
+        </section>
+
+        <!-- 舱室：设置 -->
+        <section class="reveal" data-step="5" aria-labelledby="settings-title">
+          <div class="section-head">
+            <h2 class="section-title" id="settings-title">舱室</h2>
+            <span class="section-rule" aria-hidden="true"></span>
+          </div>
+          <div class="settings">
+            <div class="setting-row">
+              <div class="setting-copy">
+                <span class="setting-label">置顶显示</span>
+                <span class="setting-desc">桌宠窗口始终浮在最前面</span>
+              </div>
+              <button class="toggle" id="toggle-always-on-top" type="button"
+                      role="switch" aria-checked="true" aria-label="置顶显示"></button>
+            </div>
+            <div class="setting-row">
+              <div class="setting-copy">
+                <span class="setting-label">鼠标穿透</span>
+                <span class="setting-desc">点击直接落到后面的窗口</span>
+              </div>
+              <button class="toggle" id="toggle-click-through" type="button"
+                      role="switch" aria-checked="false" aria-label="鼠标穿透"></button>
+            </div>
+            <div class="setting-row setting-row--stack">
+              <div class="setting-copy">
+                <span class="setting-label">桌宠大小</span>
+                <span class="setting-desc">调整她落在桌面上的尺寸</span>
+              </div>
+              <div class="size-selector" id="size-selector" role="group" aria-label="桌宠大小">
+                <button class="size-btn" type="button" data-scale="0.65">迷你</button>
+                <button class="size-btn active" type="button" data-scale="0.8">小</button>
+                <button class="size-btn" type="button" data-scale="1">标准</button>
+                <button class="size-btn" type="button" data-scale="1.2">大</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

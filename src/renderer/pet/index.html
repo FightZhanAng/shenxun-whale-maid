@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>桌宠</title>
+  <style>
+    /* 首帧守卫：桌宠窗口必须全程透明，不能有底色闪一下。 */
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="pet-container">
+    <img id="pet-sprite" class="breathing" alt="桌宠" draggable="false">
+    <div id="feedback-bubble" role="status" aria-live="polite"></div>
+  </div>
+</body>
+</html>

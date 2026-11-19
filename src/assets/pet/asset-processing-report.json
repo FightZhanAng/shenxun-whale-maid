@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 5,
+  "scope": "focus",
+  "backgroundMode": "semantic-cutout",
+  "segmentationBackend": "auto",
+  "subjectKind": "illustration",
+  "generationBackground": "transparent-grid",
+  "threshold": 28,
+  "feather": 12,
+  "safeMargin": 24,
+  "targetOccupancy": 0.78,
+  "assets": [
+    {
+      "ok": true,
+      "name": "focus-01.png",
+      "state": "focus",
+      "cutoutBackend": "rembg:isnet-anime",
+      "cutoutCached": false,
+      "cutoutAttempts": [],
+      "backgroundInput": "real-alpha",
+      "backgroundPalette": [],
+      "borderCoverage": 1,
+      "sourceSize": [
+        1536,
+        1536
+      ],
+      "foregroundRatio": 0.2668113708496094,
+      "backgroundLikeForegroundRatio": 0,
+      "rectangularFill": 0.5690586608087218,
+      "sourceBounds": [
+        337,
+        185,
+        1254,
+        1389
+      ],
+      "sharedScale": 0.3139260424862313,
+      "normalizationCorrection": 1.0140293082439285,
+      "referenceVisibleSize": [
+        290,
+        386
+      ],
+      "groupSourceMaximum": [
+        938,
+        1271
+      ],
+      "outputBounds": [
+        110,
+        102,
+        401,
+        484
+      ]
+    },
+    {
+      "ok": true,
+      "name": "focus-02.png",
+      "state": "focus",
+      "cutoutBackend": "rembg:isnet-anime",
+      "cutoutCached": false,
+      "cutoutAttempts": [],
+      "backgroundInput": "real-alpha",
+      "backgroundPalette": [],
+      "borderCoverage": 1,
+      "sourceSize": [
+        1536,
+        1536
+      ],
+      "foregroundRatio": 0.27497227986653644,
+      "backgroundLikeForegroundRatio": 0,
+      "rectangularFill": 0.5700416235010662,
+      "sourceBounds": [
+        324,
+        161,
+        1246,
+        1393
+      ],
+      "sharedScale": 0.3139260424862313,
+      "normalizationCorrection": 1.0039088096895672,
+      "referenceVisibleSize": [
+        290,
+        386
+      ],
+      "groupSourceMaximum": [
+        938,
+        1271
+      ],
+      "outputBounds": [
+        111,
+        101,
+        401,
+        484
+      ]
+    },
+    {
+      "ok": true,
+      "name": "focus-03.png",
+      "state": "focus",
+      "cutoutBackend": "rembg:isnet-anime",
+      "cutoutCached": false,
+      "cutoutAttempts": [],
+      "backgroundInput": "real-alpha",
+      "backgroundPalette": [],
+      "borderCoverage": 1,
+      "sourceSize": [
+        1536,
+        1536
+      ],
+      "foregroundRatio": 0.27158567640516496,
+      "backgroundLikeForegroundRatio": 0,
+      "rectangularFill": 0.5737537720390053,
+      "sourceBounds": [
+        341,
+        157,
+        1245,
+        1390
+      ],
+      "sharedScale": 0.3139260424862313,
+      "normalizationCorrection": 1.0105081694688967,
+      "referenceVisibleSize": [
+        290,
+        386
+      ],
+      "groupSourceMaximum": [
+        938,
+        1271
+      ],
+      "outputBounds": [
+        113,
+        95,
+        399,
+        484
+      ]
+    },
+    {
+      "ok": true,
+      "name": "focus-04.png",
+      "state": "focus",
+      "cutoutBackend": "existing-alpha",
+      "cutoutCached": false,
+      "cutoutAttempts": [],
+      "backgroundInput": "real-alpha",
+      "backgroundPalette": [],
+      "borderCoverage": 1,
+      "sourceSize": [
+        1536,
+        1536
+      ],
+      "foregroundRatio": 0.27392874823676217,
+      "backgroundLikeForegroundRatio": 0,
+      "rectangularFill": 0.5587690599786272,
+      "sourceBounds": [
+        320,
+        153,
+        1251,
+        1393
+      ],
+      "sharedScale": 0.3139260424862313,
+      "normalizationCorrection": 0.989752340908192,
+      "referenceVisibleSize": [
+        290,
+        386
+      ],
+      "groupSourceMaximum": [
+        938,
+        1271
+      ],
+      "outputBounds": [
+        111,
+        99,
+        400,
+        484
+      ]
+    },
+    {
+      "ok": true,
+      "name": "focus-05.png",
+      "state": "focus",
+      "cutoutBackend": "existing-alpha",
+      "cutoutCached": false,
+      "cutoutAttempts": [],
+      "backgroundInput": "real-alpha",
+      "backgroundPalette": [],
+      "borderCoverage": 1,
+      "sourceSize": [
+        1536,
+        1536
+      ],
+      "foregroundRatio": 0.28732850816514754,
+      "backgroundLikeForegroundRatio": 0,
+      "rectangularFill": 0.5686077312661152,
+      "sourceBounds": [
+        313,
+        125,
+        1250,
+        1395
+      ],
+      "sharedScale": 0.3139260424862313,
+      "normalizationCorrection": 0.9768604758472424,
+      "referenceVisibleSize": [
+        290,
+        386
+      ],
+      "groupSourceMaximum": [
+        938,
+        1271
+      ],
+      "outputBounds": [
+        113,
+        95,
+        399,
+        484
+      ]
+    }
+  ]
+}

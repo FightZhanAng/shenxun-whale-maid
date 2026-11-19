@@ -1,0 +1,461 @@
+/* ==========================================================================
+   深寻鲸娘 · 提醒窗
+   方向：与面板同源的「深海夜航」，把提醒写成一张投入海中的信笺
+   ========================================================================== */
+
+:root {
+  --abyss-900: #030910;
+  --abyss-800: #061524;
+  --abyss-700: #0a2135;
+  --abyss-600: #0e2c46;
+  --abyss-500: #14314a;
+
+  --glow: #43c8db;
+  --glow-dim: rgba(67, 200, 219, 0.16);
+  --glow-line: rgba(67, 200, 219, 0.34);
+
+  --ink: #eaf4f8;
+  --ink-soft: #a8c2d1;
+  --ink-faint: #6d8899;
+
+  --primary: #2f5fd0;
+  --accent: #43c8db;
+  --background: #edf5ff;
+  --surface: #ffffff;
+  --text: #12213d;
+  --muted: #6c82a8;
+  --radius: 24px;
+
+  --fs-xl: 20px;
+  --fs-md: 14px;
+  --fs-sm: 12.5px;
+  --fs-xs: 11px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  --shadow-3: 0 26px 70px rgba(2, 8, 16, 0.62);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 170ms;
+  --dur-base: 340ms;
+
+  --font-display: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  --font-body: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'Bahnschrift', 'Cascadia Mono', 'Consolas', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent !important;
+  font-family: var(--font-body);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+#reminder-card {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 外壳 ---------- */
+.shell {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-lg);
+  padding: 14px;
+  overflow: hidden;
+  isolation: isolate;
+
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(67, 200, 219, 0.13), transparent 58%),
+    linear-gradient(168deg, var(--abyss-700) 0%, var(--abyss-800) 52%, var(--abyss-900) 100%);
+  border: 1px solid rgba(67, 200, 219, 0.18);
+  /* 无外阴影：透明无边框窗口上的外阴影会糊出一圈脏边。 */
+  box-shadow: inset 0 1px 0 rgba(234, 244, 248, 0.07);
+}
+
+.shell__aura {
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(30rem 22rem at 10% -8%, rgba(67, 200, 219, 0.2), transparent 62%),
+    radial-gradient(26rem 20rem at 104% 14%, rgba(47, 95, 208, 0.26), transparent 60%);
+  filter: blur(2px);
+}
+
+.shell__grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- 身份条 ---------- */
+.masthead {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid rgba(67, 200, 219, 0.14);
+  margin-bottom: 10px;
+  flex: none;
+}
+
+.masthead__sigil {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--glow);
+  border-radius: 50%;
+  border: 1px solid var(--glow-line);
+  background: var(--glow-dim);
+  box-shadow: 0 0 16px rgba(67, 200, 219, 0.2);
+}
+
+.masthead__sigil svg { width: 19px; height: 19px; }
+
+.masthead__id {
+  flex: 1;
+  min-width: 0;
+}
+
+.masthead__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+  color: var(--ink);
+  text-shadow: 0 0 20px rgba(67, 200, 219, 0.32);
+}
+
+.masthead__sub {
+  font-size: var(--fs-xs);
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.ghost-btn {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(168, 194, 209, 0.2);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: color var(--dur-fast) ease-out,
+              border-color var(--dur-fast) ease-out,
+              background var(--dur-fast) ease-out;
+}
+
+.ghost-btn svg { width: 13px; height: 13px; }
+
+.ghost-btn:hover {
+  color: var(--glow);
+  border-color: var(--glow-line);
+  background: var(--glow-dim);
+}
+
+/* ---------- 表单 ---------- */
+.compose {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* 同面板：滚动容器里的子项保持自然高度，避免带 overflow 的块被压扁。 */
+.compose > * {
+  flex: none;
+}
+
+.compose::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.field__label {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.field__input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(168, 194, 209, 0.2);
+  background: rgba(3, 9, 16, 0.55);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  letter-spacing: 0.02em;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  transition: border-color var(--dur-fast) ease-out,
+              box-shadow var(--dur-fast) ease-out,
+              background var(--dur-fast) ease-out;
+}
+
+.field__input::placeholder {
+  color: var(--ink-faint);
+}
+
+.field__input:hover {
+  border-color: rgba(168, 194, 209, 0.34);
+}
+
+.field__input:focus {
+  border-color: var(--glow);
+  background: rgba(3, 9, 16, 0.72);
+  /* 用内描边而不是外扩散：外扩散会被滚动容器的 overflow-x: hidden 从左右裁掉。 */
+  box-shadow: inset 0 0 0 1px var(--glow-line), inset 0 1px 0 rgba(234, 244, 248, 0.05);
+}
+
+/* datetime-local 内部的原生日历按钮：Windows 上是浅灰方块，
+   与深海主题完全脱节。这里把它抹掉，改用自绘的线稿日历图标。 */
+.field__input--time::-webkit-calendar-picker-indicator {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin-left: 6px;
+  cursor: pointer;
+  opacity: 0.62;
+  /* 把原生图标反相成青色线稿 */
+  filter: invert(74%) sepia(46%) saturate(1200%) hue-rotate(148deg) brightness(1.05);
+  transition: opacity var(--dur-fast) ease-out;
+}
+
+.field__input--time::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* 原生控件内部字段（年/月/日/时/分）默认用系统色，强制继承主题色 */
+.field__input--time::-webkit-datetime-edit,
+.field__input--time::-webkit-datetime-edit-fields-wrapper {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.field__input--time::-webkit-datetime-edit-text {
+  color: var(--ink-faint);
+  padding: 0 1px;
+}
+
+.field__input--time::-webkit-datetime-edit-year-field:focus,
+.field__input--time::-webkit-datetime-edit-month-field:focus,
+.field__input--time::-webkit-datetime-edit-day-field:focus,
+.field__input--time::-webkit-datetime-edit-hour-field:focus,
+.field__input--time::-webkit-datetime-edit-minute-field:focus,
+.field__input--time::-webkit-datetime-edit-ampm-field:focus {
+  /* 聚焦某个字段时不要出现系统蓝底高亮 */
+  background: transparent;
+  color: var(--glow);
+  outline: none;
+  text-shadow: 0 0 10px rgba(67, 200, 219, 0.55);
+}
+
+/* 全局焦点环落到时间框上时，改用内描边，避免和上面那圈外框叠加成双环 */
+.field__input--time:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--glow-line), inset 0 1px 0 rgba(234, 244, 248, 0.05);
+}
+
+/* ---------- 快捷时间 ---------- */
+.quick-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-2);
+}
+
+.chip {
+  min-height: 30px;
+  padding: 0 var(--sp-1);
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(168, 194, 209, 0.18);
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: all var(--dur-fast) ease-out;
+}
+
+.chip:hover {
+  color: var(--glow);
+  border-color: var(--glow-line);
+  background: var(--glow-dim);
+}
+
+.chip.active {
+  color: #04212b;
+  background: linear-gradient(150deg, #6fe3f0, var(--glow));
+  border-color: transparent;
+  font-weight: 600;
+}
+
+/* ---------- 提示行 ---------- */
+.compose__hint {
+  min-height: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-faint);
+  letter-spacing: 0.03em;
+  transition: color var(--dur-fast) ease-out;
+}
+
+.compose__hint.is-error {
+  color: #f2a5b8;
+}
+
+/* ---------- 动作 ---------- */
+.actions {
+  display: flex;
+  gap: var(--sp-2);
+  /* 不再用 margin-top:auto：它会在内容不足时把按钮行顶到底部并留下空档。
+     让内容自然排布，由窗口高度本身保证不留滚动。 */
+  padding-top: 2px;
+}
+
+.btn {
+  flex: 1;
+  min-height: 42px;
+  padding: 0 var(--sp-4);
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: transform var(--dur-fast) ease-out,
+              background var(--dur-fast) ease-out,
+              border-color var(--dur-fast) ease-out,
+              box-shadow var(--dur-fast) ease-out,
+              color var(--dur-fast) ease-out;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-primary {
+  color: #04212b;
+  background: linear-gradient(150deg, #6fe3f0, var(--glow));
+  border-color: rgba(111, 227, 240, 0.6);
+  box-shadow: 0 4px 18px rgba(67, 200, 219, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 26px rgba(67, 200, 219, 0.42);
+}
+
+.btn-ghost {
+  color: var(--ink-soft);
+  background: transparent;
+  border-color: rgba(168, 194, 209, 0.24);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  color: var(--glow);
+  border-color: var(--glow-line);
+  background: var(--glow-dim);
+}
+
+/* ---------- 焦点可见 ---------- */
+:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* ---------- 入场编排 ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out);
+}
+
+.reveal[data-step='1'].in { transition-delay: 0ms; }
+.reveal[data-step='2'].in { transition-delay: 70ms; }
+.reveal[data-step='3'].in { transition-delay: 140ms; }
+.reveal[data-step='4'].in { transition-delay: 210ms; }
+.reveal[data-step='5'].in { transition-delay: 280ms; }
+
+/* ---------- 动效降级 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    transform: none;
+  }
+}
