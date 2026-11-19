@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Type check
+        run: npx tsc --noEmit
+      - name: Validate development contract and spec
+        run: |
+          node tools/validate-dev-contract.mjs
+          node tools/validate-spec.mjs
+          node tools/validate-asset-links.mjs
+      - name: Unit tests
+        run: npm test
+
+  topics:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Set repository topics
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api --method PUT "repos/${GITHUB_REPOSITORY}/topics" --input - <<'JSON'
+          {"names":["electron","desktop-pet","typescript","windows","electron-forge","ai-companion"]}
+          JSON

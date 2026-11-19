@@ -2,6 +2,8 @@
 
 > 一只住在桌面上的深海鲸娘。会眨眼、会害羞，也会安静地陪你敲代码。
 
+![深寻鲸娘 · 鲸汐](docs/preview.png)
+
 基于 **Electron 37 + TypeScript + Webpack + Electron Forge** 的 Windows 桌面宠物：透明无边框窗口、拖拽移动、点击互动、状态机驱动动画、提醒事项、打字陪伴与本地持久化。
 
 ## 功能

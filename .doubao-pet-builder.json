@@ -20,7 +20,7 @@
     "tools/dev-ports.mjs": "33c3f354450ee0b4454117a3eba544e0e89f351c2a3656aeffe4ab9c0a4f2275",
     "tools/doctor.mjs": "2f79b020df8f71522d735802c1095f104e6438fe7b2629ebb6fd99dcf2f0d565",
     "tools/inspect-assets.mjs": "2b70044609d3868913ec0db7ba69470078d843fcfa5e7b7a9cabfbbc9e67f5a5",
-    "package.json": "9b9cfba3f229b0e0b017b1416cf33daf6d008c9f246a44bdeb37dbaf10345945",
+    "package.json": "4fd3ff659fecb15ad9d259064620bb17bdbf837654817dbbcf79555fac9d907e",
     "package-lock.json": "752f8cf2479606b4e6c5624f7cfdf390d89d91f35fd04b3812eb55a69bf749d9",
     "src/shared/contracts.ts": "b70e3e34a6c862d4bcb0f5620f2439bfb77b307339338e17306cabfec8f0a272",
     "src/renderer/pet/index.ts": "b49d25ab411c0479b91e7dcaeda043f24f379745253c2436f859a57788532df1",
